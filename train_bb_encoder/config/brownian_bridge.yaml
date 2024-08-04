@@ -1,0 +1,39 @@
+wandb_settings:
+  exp_name: encoder_training
+  exp_dir: "encoder_training"
+  project: brownian_encoder
+
+data_params:
+  name: rocstories # NOTE: wikisection, wikihow, recipe, tm2, taskmaster, roc_stories
+  include_section_ids_in_tokenizer: False
+  data_seed: 1337
+  k: 5
+  cl_eos_str: " [SEP]"
+  language_encoder: bart
+
+model_params:
+  encoder: cl
+  latent_dim: 16 # NOTE: 8, 16, 32
+  n_layers: 2
+  eps: 1e-6
+  hidden_size: 128
+  filepath: null
+  pretrained_name: null
+loss_params:
+  loss: brownian_bridge # NOTE: brownian_bridge, vae, brownian, infonce
+  name: simclr
+optim_params: 
+  batch_size: 256
+  decay_steps: 5e4
+  decay_factor: 0.1
+  learning_rate: 0.0001
+  moving_average_decay: 0.9999
+  momentum: 0.9
+experiment_params:
+  validate: True
+  checkpoint_epochs: 2
+  continue_from_checkpoint: False
+  num_epochs: 50
+  cuda: True
+  seed: 1337
+  data_loader_workers: 16
